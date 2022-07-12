@@ -1,0 +1,84 @@
+#! /bin/sh
+
+clearp(){
+	propmt=""	
+}
+
+add(){
+	prompt+=$1
+}
+
+color(){
+	prompt+="\[\033[$1m\]"
+}
+
+reset(){
+	prompt+="\[\033[00m\]"
+}
+
+effect_rev(){ prompt+="\[\033[7m\]"; }
+ueffect_rev(){ prompt+="\[\033[27m\]"; }
+
+effect_bold(){ prompt+="\[\033[1m\]";	}
+ueffect_bold(){ prompt+="\[\033[21m\]"; }
+
+left(){ prompt+="\[\033[$1D"; }
+right(){ prompt+="\[\033[$1C"; }
+
+get_branch(){
+	branch=$(git branch --show-current 2> /dev/null)
+	if [[ $branch ]]; then echo "  $branch "; fi
+}
+
+get_working(){
+	working=${PWD/$HOME/"~"}
+	working+=""
+
+	working_short=${working}
+	if [[ ${#working} -gt 25 ]]; then
+		working_short=$(echo $working|cut -d"/" -f1)
+		working_short+="/.../$(echo $working|rev|cut -d"/" -f2|rev)/$(echo $working|rev|cut -d"/" -f1|rev)"
+	fi
+
+	echo -en "\033[$((${#working_short}+6))D \033[7m $working_short \033[27m "
+}
+
+PROMPT_DIRTRIM=2
+
+mkprompt(){
+	reset
+
+	color 32;
+	add " █"
+	reset   
+
+	color 42; color 30; effect_bold
+	add " \u@\h " 
+	reset
+
+	color 42; color 34
+	add " "
+	reset
+
+	color 44; color 30; effect_bold
+	add '$(get_branch)'
+	reset
+	color 34; effect_rev
+	add ' '
+	reset
+
+	right 10000
+	
+	color 37
+	add '$(get_working)'
+	
+	add '\n'
+	
+	color 35
+	add "   契 "
+	reset
+
+	echo "$prompt"
+}
+
+PS1="$(mkprompt)"

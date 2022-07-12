@@ -1,0 +1,82 @@
+###########
+#  Other  # 
+###########
+
+# terminal #
+super + Return
+	urxvt	
+
+# launcher #
+super + p
+	rofi -show run	
+
+
+#################
+# bspwm hotkeys #
+#################
+# quit #
+super + shift + q
+	bspc quit
+
+# restart #
+super + shift + r
+	bspc wm -r
+
+# close node # 
+super + w
+	bspc node -c
+
+# kill node #
+super + shift + w
+	bspwm node -k
+
+# monocle mode # 
+super + m
+	bspc desktop -l next
+
+# window state #
+super + {t,shift + t,s,shift+s,f}
+	bspc node {-t tiled,-t pseudo_tiled,-t floating,-g sticky,-t fullscreen}
+
+
+#############################
+#  focus, move, and select  #
+#############################
+
+# focus and move #
+super + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+
+# move a floating window
+super + {Left,Down,Up,Right}
+	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+# move to desktop #
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,node -d} '^{1-9,10}'
+
+# preselect direction #
+super + ctrl + {h,j,k,l}
+	bspc node -p {west,south,north,east}
+
+# preselect ratio #
+super + ctrl + {1-9}
+	bspc node -o 0.{1-9}
+
+# cancel preselection #
+super + space
+	bspc node -p cancel
+
+
+##########
+# resize #
+##########
+
+# move out # 
+super + alt + {h,j,k,l}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# move in #
+super + alt + shift + {h,j,k,l}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+

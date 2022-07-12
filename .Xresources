@@ -1,0 +1,58 @@
+#define base #232136
+#define surface #2a273f
+#define overlay #393552
+#define muted #6e6a86
+#define subtle #908caa
+#define text #e0def4
+#define love #eb6f92
+#define gold #f6c177
+#define rose #ea9a97
+#define rose_light #ebbcba 
+#define pine #3e8fb0
+#define foam #9ccfd8
+#define foam_dark #56949f 
+#define iris #c4a7e7
+#define highlightLow #2a283e
+#define highlightMed #44415a
+#define highlightHigh #56526e
+
+*.cursorColor: highlightMed
+*.foreground:	text 
+*.background: base 
+
+*.color0: surface 
+*.color1:	love 
+*.color2: foam_dark
+*.color3: gold 
+*.color4: pine 
+*.color5: iris 
+*.color6: foam 
+*.color7: rose_light 
+
+*.color8: surface 
+*.color9:	love 
+*.color10: foam_dark 
+*.color11: gold 
+*.color12: pine 
+*.color13: iris 
+*.color14: foam 
+*.color15: rose_light 
+
+*font: xft:SpaceMono Nerd Font:size=10
+*scrollBar: false
+
+
+URxvt.keysym.Shift-Up: command:\033]720;1\007
+URxvt.keysym.Shift-Down: command:\033]721;1\007
+
+! Disable Ctrl-Alt-c & Ctrl-Alt-v bindings (optional)
+URxvt.keysym.C-M-c:    builtin-string:
+URxvt.keysym.C-M-v:    builtin-string:
+
+! Bind Ctrl-Shift-c & Ctrl-Shift-v to copy and paste
+URxvt.keysym.C-S-0x43: eval:selection_to_clipboard
+URxvt.keysym.C-S-0x56: eval:paste_clipboard
+
+XTerm*vt100.translations: #override \
+    Shift Ctrl <Key> C: copy-selection(CLIPBOARD) \n\
+    Shift Ctrl <Key> V: insert-selection(CLIPBOARD)
